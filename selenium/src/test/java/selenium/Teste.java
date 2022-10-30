@@ -16,6 +16,7 @@ import io.github.bonigarcia.wdm.WebDriverManager;
 public class Teste {
 	
 	/*
+	// Teste de cadastro válido - Após registro alterar CPF.
 	@Test
 	public void testValid() {
 		PageObject page = new PageObject();
@@ -24,6 +25,7 @@ public class Teste {
 				"allexsantosrn@gmail.com", "allexsantosrn@gmail.com", "123456", "123456");
 	}
 	*/
+	// Teste de cadastro inválido.
 	@Test 
 	public void testInvalid() {
 		PageObject page = new PageObject();
