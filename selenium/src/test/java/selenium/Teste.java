@@ -14,26 +14,47 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import io.github.bonigarcia.wdm.WebDriverManager;
 
 public class Teste {
-	
-	/*
+
 	// Teste de cadastro válido - Após registro alterar CPF.
+
 	@Test
 	public void testValid() {
 		PageObject page = new PageObject();
-		page.inserirDados("05641479403", "Português", "Alexandre Dantas", "24/11/1984", "Masculino", "Casado",
+		page.inserirDados("42340416027", "Português", "Alexandre Dantas", "24/11/1984", "Masculino", "Casado",
 				"Mestrado", "Rio Grande do Norte", "Natal", "59141730", "1200", "84", "999494971",
 				"allexsantosrn@gmail.com", "allexsantosrn@gmail.com", "123456", "123456");
 	}
-	*/
+
 	// Teste de cadastro inválido.
-	@Test 
+
+	@Test
 	public void testInvalid() {
 		PageObject page = new PageObject();
 		page.inserirDados("58348257020", "Português", "Ronaldo Nazario", "24/11/1984", "Masculino", "Casado",
 				"Mestrado", "Rio Grande do Norte", "Natal", "59141730", "1200", "84", "999494971",
 				"Ronaldinho@gmail.com", "allexsantosrn@gmail.com", "123456", "123456");
 	}
-	
+
+	// Teste de cadastro inválido(Ausente).
+
+	@Test
+	public void testInvalidFields() {
+		PageObject page = new PageObject();
+		page.inserirDados("58348257020", "Português", "", "24/11/1984", "Masculino", "Casado", "Mestrado",
+				"Rio Grande do Norte", "Natal", "59141730", "1200", "84", "999494971", "Ronaldinho@gmail.com",
+				"allexsantosrn@gmail.com", "123456", "123456");
+	}
+
+	// Teste de cpf inválido.
+
+	@Test
+	public void testInvalidCPF() {
+		PageObject page = new PageObject();
+		page.inserirDados("11122233355", "Português", "Ronaldo Nazário", "24/11/1984", "Masculino", "Casado",
+				"Mestrado", "Rio Grande do Norte", "Natal", "59141730", "1200", "84", "999494971",
+				"Ronaldinho@gmail.com", "allexsantosrn@gmail.com", "123456", "123456");
+	}
+
 	@After
 	public void tearDown() throws Exception {
 		// driver.close();
