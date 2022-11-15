@@ -15,48 +15,63 @@ import io.github.bonigarcia.wdm.WebDriverManager;
 
 public class Teste {
 
-	// Teste de cadastro válido - Após registro alterar CPF.
+	// Teste de cadastro com e-mail inválido.
 
 	@Test
-	public void testValid() {
+	public void testInvalidDate() {
 		PageObject page = new PageObject();
-		page.inserirDados("42340416027", "Português", "Alexandre Dantas", "24/11/1984", "Masculino", "Casado",
-				"Mestrado", "Rio Grande do Norte", "Natal", "59141730", "1200", "84", "999494971",
+		page.insertDataRegister("58348257020", "Português", "Alexandre Dantas dos Santos", "01/12/1793", "Masculino",
+				"Casado", "Mestrado", "Rio Grande do Norte", "Natal", "59141730", "1200", "84", "999494971",
 				"allexsantosrn@gmail.com", "allexsantosrn@gmail.com", "123456", "123456");
+
+		assertTrue(page.hasText("dataNascimento: esta data deve ser igual ou posterior a 1900."));
 	}
 
-	// Teste de cadastro inválido.
+	// Teste de login com cpf vazio.
 
 	@Test
-	public void testInvalid() {
+	public void testUserLoginEmpty() {
 		PageObject page = new PageObject();
-		page.inserirDados("58348257020", "Português", "Ronaldo Nazario", "24/11/1984", "Masculino", "Casado",
-				"Mestrado", "Rio Grande do Norte", "Natal", "59141730", "1200", "84", "999494971",
-				"Ronaldinho@gmail.com", "allexsantosrn@gmail.com", "123456", "123456");
+		page.insertDataLogin("", "123456");
+
+		assertTrue(page.hasText("CPF: Campo obrigatório não informado."));
 	}
 
-	// Teste de cadastro inválido(Ausente).
+	// Teste de login com senha vazia.
 
 	@Test
-	public void testInvalidFields() {
+	public void testUserPasswordEmpty() {
 		PageObject page = new PageObject();
-		page.inserirDados("58348257020", "Português", "", "24/11/1984", "Masculino", "Casado", "Mestrado",
-				"Rio Grande do Norte", "Natal", "59141730", "1200", "84", "999494971", "Ronaldinho@gmail.com",
-				"allexsantosrn@gmail.com", "123456", "123456");
+		page.insertDataLogin("05641479403", "");
+
+		assertTrue(page.hasText("Senha: Campo obrigatório não informado."));
 	}
 
-	// Teste de cpf inválido.
+	// Teste de cpf não encontrado.
 
 	@Test
-	public void testInvalidCPF() {
+	public void testUserNoRegister() {
 		PageObject page = new PageObject();
-		page.inserirDados("11122233355", "Português", "Ronaldo Nazário", "24/11/1984", "Masculino", "Casado",
-				"Mestrado", "Rio Grande do Norte", "Natal", "59141730", "1200", "84", "999494971",
-				"Ronaldinho@gmail.com", "allexsantosrn@gmail.com", "123456", "123456");
+		page.insertDataLogin("12345678911", "123456");
+
+		assertTrue(page.hasText("Não foi encontrado cadastro para o CPF informado."));
 	}
 
-	@After
-	public void tearDown() throws Exception {
-		// driver.close();
+	// Teste de senha inválida.
+
+	@Test
+	public void testUserInvalidPassword() {
+		PageObject page = new PageObject();
+		page.insertDataLogin("11111111111", "11111111");
+
+		assertTrue(page.hasText("A senha informada não está correta."));
 	}
+
+	// Teste de cancelamento.
+	@Test
+	public void testCancelLogin() {
+		PageObject page = new PageObject();
+		page.insertDataLogin2("11111111111", "11111111");
+	}
+
 }
